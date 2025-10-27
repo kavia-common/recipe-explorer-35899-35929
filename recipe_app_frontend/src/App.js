@@ -2,19 +2,12 @@ import React, { useState, useEffect, createContext, useContext } from 'react';
 import './App.css';
 import AppRouter from './routes/AppRouter';
 import { ThemeProvider, useTheme } from './context/ThemeContext';
+import { AuthProvider } from './context/AuthContext';
 
 /**
- * Lightweight stub contexts (Auth, Recipes)
- * Theme is provided by src/context/ThemeContext.jsx
+ * Lightweight Recipes context (stub for now).
+ * Theme and Auth are provided by dedicated context providers.
  */
-
-// Auth Context
-export const AuthContext = createContext({
-  user: null,
-  signin: async () => {},
-  signup: async () => {},
-  signout: async () => {},
-});
 
 // Recipes Context
 export const RecipesContext = createContext({
@@ -25,30 +18,7 @@ export const RecipesContext = createContext({
 });
 
 // Helpers to use contexts (optional convenience)
-export const useAuth = () => useContext(AuthContext);
 export const useRecipes = () => useContext(RecipesContext);
-
-// PUBLIC_INTERFACE
-export function AuthProvider({ children }) {
-  /** Minimal auth provider stub. Replace with real auth in future. */
-  const [user, setUser] = useState(null);
-
-  const signin = async (/* credentials */) => {
-    // no-op stub: pretend success
-    setUser({ id: 'demo', name: 'Demo User' });
-  };
-  const signup = async (/* details */) => {
-    // no-op stub
-    setUser({ id: 'demo', name: 'Demo User' });
-  };
-  const signout = async () => setUser(null);
-
-  return (
-    <AuthContext.Provider value={{ user, signin, signup, signout }}>
-      {children}
-    </AuthContext.Provider>
-  );
-}
 
 // PUBLIC_INTERFACE
 export function RecipesProvider({ children }) {
