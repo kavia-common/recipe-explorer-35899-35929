@@ -1,17 +1,12 @@
 import React, { useState, useEffect, createContext, useContext } from 'react';
 import './App.css';
 import AppRouter from './routes/AppRouter';
+import { ThemeProvider, useTheme } from './context/ThemeContext';
 
 /**
- * Lightweight stub contexts (Theme, Auth, Recipes)
- * These are intentionally minimal so the app renders now and can be expanded later.
+ * Lightweight stub contexts (Auth, Recipes)
+ * Theme is provided by src/context/ThemeContext.jsx
  */
-
-// Theme Context
-export const ThemeContext = createContext({
-  theme: 'light',
-  toggleTheme: () => {},
-});
 
 // Auth Context
 export const AuthContext = createContext({
@@ -30,27 +25,8 @@ export const RecipesContext = createContext({
 });
 
 // Helpers to use contexts (optional convenience)
-export const useTheme = () => useContext(ThemeContext);
 export const useAuth = () => useContext(AuthContext);
 export const useRecipes = () => useContext(RecipesContext);
-
-// PUBLIC_INTERFACE
-export function ThemeProvider({ children }) {
-  /** Provides theme state and toggler. Applies data-theme to documentElement. */
-  const [theme, setTheme] = useState('light');
-
-  useEffect(() => {
-    document.documentElement.setAttribute('data-theme', theme);
-  }, [theme]);
-
-  const toggleTheme = () => setTheme((t) => (t === 'light' ? 'dark' : 'light'));
-
-  return (
-    <ThemeContext.Provider value={{ theme, toggleTheme }}>
-      {children}
-    </ThemeContext.Provider>
-  );
-}
 
 // PUBLIC_INTERFACE
 export function AuthProvider({ children }) {
